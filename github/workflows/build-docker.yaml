@@ -1,0 +1,19 @@
+name: Build and Publish image to Docker hub
+on:
+  [workflow dispatch]
+
+jobs:
+  publish_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: build image
+        run: | 
+          docker build ./api/ -t (image-name-backend):latest
+          docker build ./front-end-nextjs/ -t (image-name-frontend):latest
+      - name: push image to docker hub
+        run: |
+          docker login -u alainmart -p ${{ secrets.DOCKER_HUB_TOKEN }}
+          docker push (image-name-backend):latest
+          docker push (image-name-frontend):latest
