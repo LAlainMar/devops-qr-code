@@ -10,10 +10,10 @@ jobs:
         uses: actions/checkout@v4
       - name: build image
         run: | 
-          docker build ./api/ -t (image-name-backend):latest
-          docker build ./front-end-nextjs/ -t (image-name-frontend):latest
+          docker build ./api/ -t alainmart/devops-qr-code-api:latest
+          docker build ./front-end-nextjs/ -t alainmart/devops-qr-code-frontend:latest
       - name: push image to docker hub
         run: |
           docker login -u alainmart -p ${{ secrets.DOCKER_HUB_TOKEN }}
-          docker push (image-name-backend):latest
-          docker push (image-name-frontend):latest
+          docker push alainmart/devops-qr-code-api:latest
+          docker push alainmart/devops-qr-code-frontend:latest
